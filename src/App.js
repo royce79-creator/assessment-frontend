@@ -35,6 +35,7 @@ class App extends React.Component {
   render() {
     return (
       <>
+      {/* testing comment */}
         <Navbar bg="dark" variant="dark">
           <Navbar.Brand href="#home">301 Final!</Navbar.Brand>
         </Navbar>
