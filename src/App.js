@@ -6,6 +6,7 @@ import { Navbar, Container, Row, Col } from 'react-bootstrap';
 import Form from './components/AddItem.js';
 import Items from './components/Items.js';
 
+
 const API_SERVER = process.env.REACT_APP_API;
 
 class App extends React.Component {
@@ -18,7 +19,7 @@ class App extends React.Component {
   }
 
   addItem = async (item) => {
-    await post(`${API_SERVER}/items`, item);
+    await axios.post(`${API_SERVER}/items`, item);
     this.getItems();
   }
 
@@ -30,6 +31,14 @@ class App extends React.Component {
 
   async componentDidMount() {
     await this.getItems();
+  }
+
+  deleteItems = async (itemId) => {
+    await axios.delete(`${API_SERVER}/items/${itemId}`);
+    let updatingItem = this.state.items.filter(item => item._id !== itemId);
+    this.setState({
+      items: updatingItem,
+    })
   }
 
   render() {
@@ -47,7 +56,7 @@ class App extends React.Component {
               <Form handleAddItem={this.addItem} />
             </Col>
             <Col>
-              <Items itemsList={this.state.items} />
+              <Items itemsList={this.state.items} handleDelete={this.deleteItems}/>
             </Col>
           </Row>
         </Container>
