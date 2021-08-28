@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Table, Button } from 'react-bootstrap';
+import { Table, Button, Card, Accordion } from 'react-bootstrap';
 
 class Items extends React.Component {
 
@@ -9,31 +9,21 @@ class Items extends React.Component {
     return (
       <section>
         <h2>Items...</h2>
-
-        <Table striped bordered hover>
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Description</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {
-              this.props.itemsList.map((item, idx) =>
-                <tr key={idx}>
-                  <td>{item.name}</td>
-                  <td>{item.description}</td>
-                  <td>
-                    <Button data-testid={`delete-button-${item.name}`}>Delete Item</Button>
-                  </td>
-                </tr>
-              )
-            }
-          </tbody>
-        </Table>
-
-
+        <Accordion defaultActiveKey="0">
+          {
+          this.props.itemsList.map((item, idx) =>
+            <Card key={idx}>
+              <Card.Header>
+                <Accordion.Toggle as={Button} variant="link" eventKey="0">
+                  {item.name}
+                </Accordion.Toggle>
+              </Card.Header>
+              <Accordion.Collapse eventKey="0">
+                <Card.Body>{item.description}</Card.Body>
+              </Accordion.Collapse>
+              <Button data-testid={`delete-button-${item.name}`} onClick={() => { this.props.handleDelete(item._id) }}>Delete Item</Button>
+            </Card>)}
+        </Accordion>
       </section>
     );
   }
