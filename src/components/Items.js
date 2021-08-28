@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Table, Button, Card, Accordion } from 'react-bootstrap';
+import { Button, Card, Accordion } from 'react-bootstrap';
 
 class Items extends React.Component {
 
